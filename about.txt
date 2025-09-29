@@ -1,0 +1,11 @@
+This project is implemented as a part of me learning python.
+Phase 1:
+URL to QR code
+
+Doubts: in the long run, should we keep all the different handlers in the same file or have a file
+for each handler?? (trade off decision)
+
+Learnings:
+    Decorator factory
+    decorators
+    Callable
