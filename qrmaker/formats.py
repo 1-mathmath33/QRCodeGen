@@ -1,7 +1,8 @@
 from qrmaker.registry import register_encoder
 
+URL = "url"
 
-@register_encoder("url")
+@register_encoder(URL)
 def encode_url(data: dict):
     """
     Input: dictionary with "url" key
@@ -9,7 +10,7 @@ def encode_url(data: dict):
     raise ValueError if key is not url or the value is empty
     missing scheme would use https:// prefix
     """
-    value=data.get("url", "").strip()
+    value=data.get(URL, "").strip()
     if not value:
         raise ValueError("Missing url key or value")
     if "://" not in value:
