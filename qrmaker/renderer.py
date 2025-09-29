@@ -44,7 +44,7 @@ def default_renderer(payload: str, *, size: int = 300, error: str = "M",
     modules_count = tmp.modules_count  # modules per side
 
     # compute box_size so final image is roughly size x size pixels
-    box_size = max(1, size // (modules_count + 2 * border))
+    box_size = max(1, size // (modules_count + 2 * border)) # why this formula ?
 
     # step 2: build the real QR with computed box_size and render to an image
     qr = qrcode.QRCode(error_correction=level, box_size=box_size, border=border)
