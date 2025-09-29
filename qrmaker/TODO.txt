@@ -1,0 +1,4 @@
+Improve modularity in registry.py by creating a registry class instead of just a global dictionary
+Add Tests (UT and or integration)
+
+Can try for thread safe registry operations, considering concurrency
