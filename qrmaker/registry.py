@@ -1,38 +1,48 @@
-_registry={}
+from collections import defaultdict
 
-def register_encoder(name:str):
-    """
-    Decorator Factory to register a encoder
 
-    Usage:
-        @register_encoder('encoder_kind')
-        def encode_kind(data):
-    """
-    def decorator(fn):
-        if name in _registry:
-            raise KeyError(f"Entry {name} already exists")
-        _registry[name] = fn
-        return fn
-    return decorator
+class Registry:
+    _instance = None
+    _registry = defaultdict()
 
-def get_encoder(name:str):
-    """
-    Fetches a registered encoder
-    Raises error if no registered encoder exists
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance= super().__new__(cls)
+        return cls._instance
 
-    """
-    if name in _registry:
-        return _registry[name]
-    raise ValueError(f"Entry {name} does not exist")
+    def register_encoder(self,name:str):
+        """
+        Decorator Factory to register a encoder
 
-def list_encoders()-> list[str]:
-    """
-    Returns a list of registered encoders
-    """
-    return list(_registry.keys())
+        Usage:
+            @register_encoder('encoder_kind')
+            def encode_kind(data):
+        """
+        def decorator(fn):
+            if name in self._registry:
+                raise KeyError(f"Entry {name} already exists")
+            self._registry[name] = fn
+            return fn
+        return decorator
 
-def clear_registry():
-    """
-    Clears the registry
-    """
-    _registry.clear()
+    def get_encoder(self,name:str):
+        """
+        Fetches a registered encoder
+        Raises error if no registered encoder exists
+
+        """
+        if name in self._registry:
+            return self._registry[name]
+        raise ValueError(f"Entry {name} does not exist")
+
+    def list_encoders(self)-> list[str]:
+        """
+        Returns a list of registered encoders
+        """
+        return list(self._registry.keys())
+
+    def clear_registry(self):
+        """
+        Clears the registry
+        """
+        self._registry.clear()

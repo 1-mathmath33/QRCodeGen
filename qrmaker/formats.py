@@ -1,5 +1,6 @@
-from qrmaker.registry import register_encoder
-
+from qrmaker.registry import Registry
+registry = Registry()
+register_encoder = registry.register_encoder
 URL = "url"
 
 @register_encoder(URL)

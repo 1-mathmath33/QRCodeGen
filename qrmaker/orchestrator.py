@@ -1,10 +1,10 @@
 from typing import Callable, Any, Dict
 
-from .registry import get_encoder
-from .renderer import default_renderer
+from qrmaker.registry import Registry
+from qrmaker.renderer import default_renderer
 
 Renderer = Callable[[str, int, str, int, str], bytes]  # approximate type for clarity
-
+registry = Registry()
 def generate_qr(kind: str, data: Dict[str, Any], *,
                 renderer: Renderer = default_renderer,
                 size: int = 300,
@@ -32,7 +32,7 @@ def generate_qr(kind: str, data: Dict[str, Any], *,
         Any exceptions raised by the renderer will propagate (caller may catch them).
     """
 
-    encoder=get_encoder(kind)
+    encoder=registry.get_encoder(kind)
     payload=encoder(data)
     result = renderer(payload, size=size, error=error, border=border, image_format=image_format)
     return result
